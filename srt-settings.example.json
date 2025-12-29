@@ -1,0 +1,55 @@
+{
+  "network": {
+    "allowedDomains": [
+      "*.anthropic.com",
+      "*.github.com",
+      "*.npm.org",
+      "*.pypi.org"
+    ],
+    "deniedDomains": [
+      "malicious.com",
+      "tracking.example.com"
+    ],
+    "allowUnixSockets": [],
+    "allowAllUnixSockets": false,
+    "allowLocalBinding": false
+  },
+  "filesystem": {
+    "denyRead": [
+      "~/.ssh",
+      "~/.aws",
+      "~/.config/gcloud"
+    ],
+    "allowWrite": [
+      ".",
+      "/tmp",
+      "~/workspace"
+    ],
+    "denyWrite": [
+      "~/.bashrc",
+      "~/.zshrc",
+      "~/.profile"
+    ]
+  },
+  "docker": {
+    "image": "ubuntu:22.04",
+    "name": "sandbox",
+    "workdir": "/workspace",
+    "env": {
+      "TERM": "xterm-256color"
+    },
+    "volumes": [
+      "./:/workspace"
+    ],
+    "networkMode": "none",
+    "autoRemove": true,
+    "user": "1000:1000",
+    "cpuLimit": 2.0,
+    "memoryLimit": 1073741824
+  },
+  "ignoreViolations": {
+    "npm": ["file-read*/package.json"],
+    "git": ["file-read*/.git"]
+  },
+  "enableWeakerNestedSandbox": false
+}
